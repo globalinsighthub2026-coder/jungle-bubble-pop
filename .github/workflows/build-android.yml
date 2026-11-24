@@ -32,6 +32,42 @@ jobs:
           npx cap init "Jungle Bubble Pop" "com.globalinsighthub.junglebubblepop" --web-dir=www
           npx cap add android
 
+      - name: Generate Custom Jungle Bubble App Icon
+        run: |
+          python3 -c '
+          from PIL import Image, ImageDraw
+          import os
+
+          size = 1024
+          img = Image.new("RGBA", (size, size), (13, 59, 36, 255))
+          draw = ImageDraw.Draw(img)
+
+          draw.ellipse([40, 40, 984, 984], fill=(22, 92, 54, 255), outline=(255, 200, 55, 255), width=28)
+
+          bubbles = [
+              (350, 340, 155, (235, 55, 75, 255), (255, 175, 185, 255)),
+              (675, 340, 155, (45, 155, 245, 255), (175, 225, 255, 255)),
+              (512, 540, 175, (250, 195, 35, 255), (255, 245, 185, 255)),
+              (320, 680, 130, (55, 205, 95, 255), (185, 250, 200, 255)),
+              (705, 680, 130, (185, 75, 240, 255), (235, 185, 255, 255)),
+          ]
+
+          for cx, cy, r, col, hi in bubbles:
+              draw.ellipse([cx - r, cy - r, cx + r, cy + r], fill=col, outline=(255, 255, 255, 180), width=10)
+              hx, hy, hr = cx - int(r * 0.35), cy - int(r * 0.35), int(r * 0.28)
+              draw.ellipse([hx - hr, hy - hr, hx + hr, hy + hr], fill=hi)
+
+          res_dir = "android/app/src/main/res"
+          densities = {"mdpi": 48, "hdpi": 72, "xhdpi": 96, "xxhdpi": 144, "xxxhdpi": 192}
+          for d, px in densities.items():
+              folder = os.path.join(res_dir, f"mipmap-{d}")
+              os.makedirs(folder, exist_ok=True)
+              resized = img.resize((px, px), Image.LANCZOS)
+              resized.save(os.path.join(folder, "ic_launcher.png"))
+              resized.save(os.path.join(folder, "ic_launcher_round.png"))
+              resized.save(os.path.join(folder, "ic_launcher_foreground.png"))
+          '
+
       - name: Configure AdMob App ID in AndroidManifest
         run: |
           MANIFEST="android/app/src/main/AndroidManifest.xml"
