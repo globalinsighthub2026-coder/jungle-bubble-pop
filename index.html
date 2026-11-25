@@ -33,7 +33,7 @@
     .icon-btn { width: 28px; height: 28px; border-radius: 8px; border: 1.5px solid #fde047; background: #9333ea; color: #fff; font-size: 13px; }
 
     .game-wrap {
-      flex: 1; position: relative; width: 100%; overflow: hidden;
+      flex: 1; position: relative; width: 100%; min-height: 280px; overflow: hidden;
       background: radial-gradient(circle at 50% 30%, #1b5e3a 0%, #0d3b24 100%);
       border-left: 2px solid #eab308; border-right: 2px solid #eab308;
     }
@@ -172,15 +172,19 @@
       } catch (e) {}
     }
 
-    function resizeCanvas() {
+    function syncSize() {
       const rect = wrap.getBoundingClientRect();
-      W = rect.width > 50 ? rect.width : window.innerWidth;
-      H = rect.height > 50 ? rect.height : (window.innerHeight - 190);
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = W * dpr;
-      canvas.height = H * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      R = Math.floor(W / (COLS * 2 + 1));
+      const newW = Math.floor(rect.width > 50 ? rect.width : (window.innerWidth || 360));
+      const newH = Math.floor(rect.height > 50 ? rect.height : Math.max(300, (window.innerHeight || 720) - 185));
+      if (newW !== W || newH !== H || canvas.width === 0) {
+        W = newW;
+        H = newH;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        R = Math.max(14, Math.floor(W / (COLS * 2 + 1)));
+      }
     }
 
     function shooterPos() { return { x: W / 2, y: H - R * 2.2 }; }
@@ -193,7 +197,7 @@
     }
 
     function activeColorsCount() {
-      return Math.min(2 + level, COLORS.length); // Level 1 = 3 colors, Level 2 = 4 colors, Level 3+ = 5 colors
+      return Math.min(2 + level, COLORS.length);
     }
 
     function pickAvailableColor() {
@@ -209,15 +213,14 @@
     }
 
     function initLevel() {
-      resizeCanvas();
+      syncSize();
       grid = [];
-      const rows = Math.min(2 + level, 7); // Level 1 starts with just 3 easy rows!
+      const rows = Math.min(2 + level, 7);
       const colorLimit = activeColorsCount();
       for (let r = 0; r < rows; r++) {
         const rowArr = [];
         const colsInRow = (r % 2 === 1) ? COLS - 1 : COLS;
         for (let c = 0; c < colsInRow; c++) {
-          // Group same colors together in pairs so clearing is fun & easy
           if (c > 0 && Math.random() < 0.45) {
             rowArr.push(rowArr[c - 1]);
           } else {
@@ -314,7 +317,6 @@
       return res;
     }
 
-    // Drop any floating bubbles not connected to top row!
     function dropFloatingBubbles() {
       const anchored = new Set();
       const stack = [];
@@ -440,6 +442,7 @@
     }
 
     function update() {
+      syncSize();
       smoothAngle += (targetAngle - smoothAngle) * 0.35;
       if (shot) {
         shot.x += shot.vx;
@@ -541,4 +544,5 @@
     }
 
     document.getElementById('fireBtn').onclick = () => {
-      if (fireballs > 0 && !isFire
+      if (fireballs > 0 && !isFireball) {
+    
