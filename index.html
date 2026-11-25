@@ -40,9 +40,9 @@
 
     .bottom-bar {
       background: #0c1f14; border-top: 2px solid #eab308;
-      padding: 8px 10px; flex-shrink: 0;
+      padding: 8px 10px 58px 10px; flex-shrink: 0;
     }
-    .power-row { display: flex; gap: 8px; margin-bottom: 6px; }
+    .power-row { display: flex; gap: 8px; }
     .p-btn {
       flex: 1; padding: 8px 10px; border-radius: 12px; border: 2px solid #fde047;
       color: #fff; font-weight: 800; font-size: 13px; text-align: center; position: relative;
@@ -50,12 +50,11 @@
     .fire-btn { background: linear-gradient(180deg, #f97316, #c2410c); }
     .plus-btn { background: linear-gradient(180deg, #2563eb, #1d4ed8); border-color: #93c5fd; }
     .badge { position: absolute; top: -6px; right: -4px; background: #fef08a; color: #000; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #000; }
-    .ad-banner {
-      background: #111827; border: 1px solid #374151; border-radius: 6px;
-      padding: 6px 8px; font-size: 10px; color: #9ca3af;
-      display: flex; justify-content: space-between; align-items: center;
+    .ad-status {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
+      background: #09150e; color: #86efac; font-size: 11px;
+      display: flex; align-items: center; justify-content: center; z-index: 1;
     }
-    .ad-tag { background: #eab308; color: #000; font-weight: 900; padding: 1px 4px; border-radius: 3px; margin-right: 6px; }
     .modal {
       position: absolute; inset: 0; background: rgba(0,0,0,0.78);
       display: none; align-items: center; justify-content: center; z-index: 20;
@@ -105,25 +104,63 @@
   <div class="bottom-bar">
     <div class="power-row">
       <button class="p-btn fire-btn" id="fireBtn">🔥 FIREBALL <span class="badge" id="fireCount">2</span></button>
-      <button class="p-btn plus-btn" id="plusBtn">🎬 +5 BALLS</button>
-    </div>
-    <div class="ad-banner">
-      <div><span class="ad-tag">AD</span>Jungle Bubble Pop • ca-app-pub-6105461726570418</div>
-      <div>320x50</div>
+      <button class="p-btn plus-btn" id="plusBtn">🎬 +5 BALLS (Ad)</button>
     </div>
   </div>
+  <div class="ad-status" id="adStatus">Loading Google AdMob Banner...</div>
 
   <script>
+    // Official Google AdMob Test Unit IDs (Replace with real IDs when publishing to Play Store)
+    const BANNER_AD_ID = 'ca-app-pub-3940256099942544/6300978111';
+    const REWARD_AD_ID = 'ca-app-pub-3940256099942544/5224354917';
+
+    async function initAdMob() {
+      const statusEl = document.getElementById('adStatus');
+      try {
+        const AdMob = window.Capacitor?.Plugins?.AdMob;
+        if (!AdMob) {
+          statusEl.textContent = 'AdMob Ready (Install APK to view live Test Ad)';
+          return;
+        }
+        await AdMob.initialize({ initializeForTesting: true });
+        await AdMob.showBanner({
+          adId: BANNER_AD_ID,
+          adSize: 'ADAPTIVE_BANNER',
+          position: 'BOTTOM_CENTER',
+          margin: 0,
+          isTesting: true
+        });
+        statusEl.textContent = '';
+      } catch (err) {
+        statusEl.textContent = 'AdMob: ' + (err.message || 'Check Internet');
+      }
+    }
+
+    async function showRewardedAd() {
+      try {
+        const AdMob = window.Capacitor?.Plugins?.AdMob;
+        if (!AdMob) {
+          ballsLeft += 5;
+          return;
+        }
+        await AdMob.prepareRewardVideoAd({ adId: REWARD_AD_ID, isTesting: true });
+        await AdMob.showRewardVideoAd();
+        ballsLeft += 5;
+      } catch (e) {
+        ballsLeft += 5;
+      }
+    }
+
     const canvas = document.getElementById('gameCanvas');
     const ctx = canvas.getContext('2d');
     const wrap = document.getElementById('gameWrap');
 
     const COLORS = [
-      { fill: '#ef4444', hi: '#fca5a5' }, // Red
-      { fill: '#3b82f6', hi: '#93c5fd' }, // Blue
-      { fill: '#eab308', hi: '#fef08a' }, // Yellow
-      { fill: '#22c55e', hi: '#86efac' }, // Green
-      { fill: '#a855f7', hi: '#d8b4fe' }  // Purple
+      { fill: '#ef4444', hi: '#fca5a5' },
+      { fill: '#3b82f6', hi: '#93c5fd' },
+      { fill: '#eab308', hi: '#fef08a' },
+      { fill: '#22c55e', hi: '#86efac' },
+      { fill: '#a855f7', hi: '#d8b4fe' }
     ];
 
     let W = 360, H = 500, R = 18;
@@ -153,7 +190,7 @@
     function resizeCanvas() {
       const rect = wrap.getBoundingClientRect();
       W = rect.width > 50 ? rect.width : window.innerWidth;
-      H = rect.height > 50 ? rect.height : (window.innerHeight - 180);
+      H = rect.height > 50 ? rect.height : (window.innerHeight - 230);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = W * dpr;
       canvas.height = H * dpr;
@@ -161,9 +198,7 @@
       R = Math.floor(W / (COLS * 2 + 1));
     }
 
-    function shooterPos() {
-      return { x: W / 2, y: H - R * 2.4 };
-    }
+    function shooterPos() { return { x: W / 2, y: H - R * 2.4 }; }
 
     function cellCenter(r, c) {
       const offset = (r % 2 === 1) ? R : 0;
@@ -290,7 +325,6 @@
       }
       grid[bestR][bestC] = shot.color;
 
-      // Match cluster
       const visited = new Set();
       const cluster = [];
       const stack = [[bestR, bestC]];
@@ -331,7 +365,6 @@
       nextColor = Math.floor(Math.random() * COLORS.length);
       shot = null;
 
-      // Check win
       let remaining = 0;
       for (const row of grid) for (const cell of row) if (cell !== null && cell !== undefined) remaining++;
       if (remaining === 0) {
@@ -349,9 +382,7 @@
     }
 
     function update() {
-      // Smooth 60fps aim interpolation
       smoothAngle += (targetAngle - smoothAngle) * 0.35;
-
       if (shot) {
         shot.x += shot.vx;
         shot.y += shot.vy;
@@ -393,8 +424,6 @@
 
     function draw() {
       ctx.clearRect(0, 0, W, H);
-
-      // Draw grid bubbles
       for (let r = 0; r < grid.length; r++) {
         for (let c = 0; c < grid[r].length; c++) {
           if (grid[r][c] === null || grid[r][c] === undefined) continue;
@@ -404,8 +433,6 @@
       }
 
       const s = shooterPos();
-
-      // Draw smooth aiming stick & dotted guide line
       ctx.save();
       ctx.translate(s.x, s.y);
       ctx.rotate(smoothAngle);
@@ -425,7 +452,6 @@
         ctx.restore();
       }
 
-      // Shooter base & balls
       ctx.beginPath();
       ctx.arc(s.x, s.y, R + 7, 0, Math.PI * 2);
       ctx.fillStyle = '#064e3b';
@@ -437,13 +463,11 @@
       if (!shot) drawBubble(s.x, s.y, R, currentColor, isFireball);
       if (shot) drawBubble(shot.x, shot.y, R, shot.color, shot.fire);
 
-      // Next ball preview & balls left
       drawBubble(s.x - R * 2.5, s.y + 6, R * 0.72, nextColor);
       ctx.fillStyle = '#fff';
       ctx.font = 'bold 13px sans-serif';
       ctx.fillText(`Balls: ${ballsLeft}`, s.x + R * 1.8, s.y + 10);
 
-      // Particles
       for (const p of particles) {
         ctx.fillStyle = p.color;
         ctx.beginPath();
@@ -465,7 +489,7 @@
         document.getElementById('fireCount').textContent = fireballs;
       }
     };
-    document.getElementById('plusBtn').onclick = () => { ballsLeft += 5; };
+    document.getElementById('plusBtn').onclick = showRewardedAd;
     document.getElementById('chestBtn').onclick = () => { coins += 25; document.getElementById('coinTxt').textContent = coins; };
     document.getElementById('soundBtn').onclick = (e) => { soundOn = !soundOn; e.target.textContent = soundOn ? '🔊' : '🔇'; };
     document.getElementById('nextBtn').onclick = initLevel;
@@ -473,7 +497,7 @@
     window.addEventListener('resize', resizeCanvas);
     window.addEventListener('load', () => {
       initLevel();
-      setTimeout(() => { resizeCanvas(); }, 150);
+      setTimeout(() => { resizeCanvas(); initAdMob(); }, 300);
       loop();
     });
   </script>
