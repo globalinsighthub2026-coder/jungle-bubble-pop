@@ -12,10 +12,7 @@
       display: flex; flex-direction: column;
       padding-top: 26px; padding-bottom: 56px;
     }
-    .top-bar {
-      background: #0f2417; border-bottom: 2px solid #eab308;
-      padding: 6px 10px; color: #fff; flex-shrink: 0;
-    }
+    .top-bar { background: #0f2417; border-bottom: 2px solid #eab308; padding: 6px 10px; color: #fff; flex-shrink: 0; }
     .row1 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
     .profile { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 3px 10px; border-radius: 20px; border: 1px solid #eab308; }
     .avatar { width: 24px; height: 24px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 14px; }
@@ -33,89 +30,47 @@
 
     .game-wrap {
       flex: 1; position: relative; width: 100%; overflow: hidden;
-      background: #144d30;
-      border-left: 2px solid #eab308; border-right: 2px solid #eab308;
+      background: #144d30; border-left: 2px solid #eab308; border-right: 2px solid #eab308;
       touch-action: none;
     }
-    .ceiling-line {
-      position: absolute; top: 0; left: 0; right: 0; height: 6px;
-      background: #eab308;
-    }
+    .ceiling-line { position: absolute; top: 0; left: 0; right: 0; height: 6px; background: #eab308; }
     .bubble {
       position: absolute; width: 34px; height: 34px; border-radius: 50%;
-      box-shadow: inset -4px -4px 6px rgba(0,0,0,0.4), inset 4px 4px 6px rgba(255,255,255,0.6);
-      border: 2px solid #ffffff;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
+      box-shadow: inset -4px -4px 6px rgba(0,0,0,0.4), inset 4px 4px 6px rgba(255,255,255,0.65);
+      border: 2px solid #ffffff; transform: translate(-50%, -50%); pointer-events: none;
     }
-    .fire-ball {
-      background-color: #f97316 !important;
-      border: 2px solid #fef08a !important;
-      box-shadow: 0 0 16px #fde047 !important;
-    }
-    .shooter-ring {
-      position: absolute; left: 50%; bottom: 12px;
-      width: 48px; height: 48px; transform: translateX(-50%);
-      border-radius: 50%; background: #064e3b; border: 3px solid #facc15;
-      pointer-events: none;
-    }
-    .aim-barrel {
-      position: absolute; left: 50%; bottom: 32px;
-      width: 38px; height: 8px; background: #fde047; border-radius: 4px;
-      transform-origin: 0% 50%; transform: rotate(-90deg);
-      pointer-events: none;
-    }
-    .aim-line {
-      position: absolute; left: 50%; bottom: 35px;
-      width: 260px; height: 3px;
-      border-top: 3px dashed rgba(255,255,255,0.8);
-      transform-origin: 0% 50%; transform: rotate(-90deg);
-      pointer-events: none; display: none;
-    }
+    .c0 { background: #ef4444 !important; }
+    .c1 { background: #3b82f6 !important; }
+    .c2 { background: #facc15 !important; }
+    .c3 { background: #22c55e !important; }
+    .c4 { background: #a855f7 !important; }
+    .fire-ball { background: #f97316 !important; border: 2px solid #fef08a !important; box-shadow: 0 0 18px #fde047 !important; }
+
+    .shooter-ring { position: absolute; left: 50%; bottom: 12px; width: 48px; height: 48px; transform: translateX(-50%); border-radius: 50%; background: #064e3b; border: 3px solid #facc15; pointer-events: none; }
+    .aim-barrel { position: absolute; left: 50%; bottom: 32px; width: 38px; height: 8px; background: #fde047; border-radius: 4px; transform-origin: 0% 50%; transform: rotate(-90deg); pointer-events: none; }
+    .aim-line { position: absolute; left: 50%; bottom: 35px; width: 260px; height: 3px; border-top: 3px dashed rgba(255,255,255,0.85); transform-origin: 0% 50%; transform: rotate(-90deg); pointer-events: none; display: none; }
     #currBall { left: 50%; bottom: 19px; transform: translateX(-50%); }
     #nextBall { left: calc(50% - 46px); bottom: 16px; width: 24px; height: 24px; transform: translateX(-50%); }
-    .balls-label {
-      position: absolute; left: calc(50% + 34px); bottom: 26px;
-      color: #fff; font-weight: 900; font-size: 13px;
-      text-shadow: 0 1px 3px #000; pointer-events: none;
-    }
+    .balls-label { position: absolute; left: calc(50% + 34px); bottom: 26px; color: #fff; font-weight: 900; font-size: 13px; text-shadow: 0 1px 3px #000; pointer-events: none; }
 
-    .bottom-bar {
-      background: #0c1f14; border-top: 2px solid #eab308;
-      padding: 6px 10px; flex-shrink: 0;
-    }
+    .bottom-bar { background: #0c1f14; border-top: 2px solid #eab308; padding: 6px 10px; flex-shrink: 0; }
     .power-row { display: flex; gap: 8px; }
-    .p-btn {
-      flex: 1; padding: 8px 8px; border-radius: 10px; border: 2px solid #fde047;
-      color: #fff; font-weight: 800; font-size: 12px; text-align: center; position: relative;
-    }
+    .p-btn { flex: 1; padding: 8px; border-radius: 10px; border: 2px solid #fde047; color: #fff; font-weight: 800; font-size: 12px; text-align: center; position: relative; }
     .fire-btn { background: #ea580c; }
     .plus-btn { background: #2563eb; border-color: #93c5fd; }
     .badge { position: absolute; top: -6px; right: -4px; background: #fef08a; color: #000; width: 18px; height: 18px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #000; }
 
-    .modal {
-      position: absolute; inset: 0; background: rgba(0,0,0,0.82);
-      display: none; align-items: center; justify-content: center; z-index: 20;
-    }
-    .modal-card {
-      background: #14532d; border: 2px solid #facc15;
-      border-radius: 18px; padding: 20px; text-align: center; color: #fff; width: 82%; max-width: 300px;
-    }
+    .modal { position: absolute; inset: 0; background: rgba(0,0,0,0.82); display: none; align-items: center; justify-content: center; z-index: 20; }
+    .modal-card { background: #14532d; border: 2px solid #facc15; border-radius: 18px; padding: 20px; text-align: center; color: #fff; width: 82%; max-width: 300px; }
     .modal-card h2 { color: #fde047; margin-bottom: 8px; font-size: 20px; }
     .modal-card p { margin-bottom: 14px; font-size: 13px; color: #dcfce7; }
-    .next-btn {
-      background: #16a34a; border: 2px solid #bbf7d0;
-      color: #fff; font-weight: 900; font-size: 15px; padding: 10px 20px; border-radius: 12px; width: 100%;
-    }
+    .next-btn { background: #16a34a; border: 2px solid #bbf7d0; color: #fff; font-weight: 900; font-size: 15px; padding: 10px; border-radius: 12px; width: 100%; }
   </style>
 </head>
 <body>
   <div class="top-bar">
     <div class="row1">
-      <div class="profile">
-        <div class="avatar">🦁</div>
-        <div><div style="font-size:11px;font-weight:800;">Jungle Hero</div><div style="font-size:9px;color:#86efac;">Beginner 🌱</div></div>
-      </div>
+      <div class="profile"><div class="avatar">🦁</div><div><div style="font-size:11px;font-weight:800;">Jungle Hero</div><div style="font-size:9px;color:#86efac;">Beginner 🌱</div></div></div>
       <div class="zone-pill">🌴 Emerald Jungle</div>
       <button class="sound-btn" id="soundBtn">🔊</button>
     </div>
@@ -130,13 +85,23 @@
 
   <div class="game-wrap" id="gameWrap">
     <div class="ceiling-line"></div>
-    <div id="boardLayer"></div>
+    <div id="boardLayer">
+      <div class="bubble c0" style="left:10%;top:26px;"></div>
+      <div class="bubble c0" style="left:20%;top:26px;"></div>
+      <div class="bubble c0" style="left:30%;top:26px;"></div>
+      <div class="bubble c1" style="left:40%;top:26px;"></div>
+      <div class="bubble c1" style="left:50%;top:26px;"></div>
+      <div class="bubble c1" style="left:60%;top:26px;"></div>
+      <div class="bubble c2" style="left:70%;top:26px;"></div>
+      <div class="bubble c2" style="left:80%;top:26px;"></div>
+      <div class="bubble c2" style="left:90%;top:26px;"></div>
+    </div>
     <div class="aim-line" id="aimLine"></div>
     <div class="aim-barrel" id="aimBarrel"></div>
     <div class="shooter-ring"></div>
-    <div class="bubble" id="currBall"></div>
-    <div class="bubble" id="nextBall"></div>
-    <div class="bubble" id="shotBall" style="display:none;"></div>
+    <div class="bubble c0" id="currBall"></div>
+    <div class="bubble c1" id="nextBall"></div>
+    <div class="bubble c0" id="shotBall" style="display:none;"></div>
     <div class="balls-label" id="ballsLbl">Balls: 30</div>
 
     <div class="modal" id="winModal">
@@ -156,40 +121,27 @@
   </div>
 
   <script>
-    const BANNER_AD_ID = 'ca-app-pub-3940256099942544/6300978111';
-    const REWARD_AD_ID = 'ca-app-pub-3940256099942544/5224354917';
+    const BANNER_ID = 'ca-app-pub-3940256099942544/6300978111';
+    const REWARD_ID = 'ca-app-pub-3940256099942544/5224354917';
 
     async function initAdMob() {
       try {
-        const AdMob = window.Capacitor?.Plugins?.AdMob;
+        const AdMob = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob;
         if (!AdMob) return;
         await AdMob.initialize({ initializeForTesting: true });
-        await AdMob.showBanner({
-          adId: BANNER_AD_ID,
-          adSize: 'ADAPTIVE_BANNER',
-          position: 'BOTTOM_CENTER',
-          margin: 0,
-          isTesting: true
-        });
-      } catch (err) {}
+        await AdMob.showBanner({ adId: BANNER_ID, adSize: 'ADAPTIVE_BANNER', position: 'BOTTOM_CENTER', margin: 0, isTesting: true });
+      } catch (e) {}
     }
 
     async function showRewardedAd() {
       try {
-        const AdMob = window.Capacitor?.Plugins?.AdMob;
+        const AdMob = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.AdMob;
         if (!AdMob) { ballsLeft += 5; updateShooterUI(); return; }
-        await AdMob.prepareRewardVideoAd({ adId: REWARD_AD_ID, isTesting: true });
+        await AdMob.prepareRewardVideoAd({ adId: REWARD_ID, isTesting: true });
         await AdMob.showRewardVideoAd();
-        ballsLeft += 5;
-        updateShooterUI();
-      } catch (e) {
-        ballsLeft += 5;
-        updateShooterUI();
-      }
+        ballsLeft += 5; updateShooterUI();
+      } catch (e) { ballsLeft += 5; updateShooterUI(); }
     }
-
-    // Solid bright colors that render 100% reliably on every Android WebView
-    const BUBBLE_COLORS = ['#ef4444', '#3b82f6', '#facc15', '#22c55e', '#a855f7'];
 
     const wrap = document.getElementById('gameWrap');
     const boardLayer = document.getElementById('boardLayer');
@@ -200,15 +152,11 @@
     const aimLine = document.getElementById('aimLine');
     const ballsLbl = document.getElementById('ballsLbl');
 
-    const COLS = 9;
-    const R = 17;
-    let grid = [];
+    const COLS = 9, R = 17;
+    let grid = [], falling = [];
     let level = 1, score = 0, coins = 300, fireballs = 3, ballsLeft = 30;
     let currentColor = 0, nextColor = 1, isFireball = false;
-    let shot = null;
-    let aimAngle = -Math.PI / 2;
-    let isAiming = false, soundOn = true;
-    let falling = [];
+    let shot = null, aimAngle = -Math.PI / 2, isAiming = false, soundOn = true;
 
     function boardW() { return wrap.offsetWidth || window.innerWidth || 360; }
     function boardH() { return wrap.offsetHeight || (window.innerHeight - 175) || 460; }
@@ -216,21 +164,15 @@
 
     function cellCenter(r, c) {
       const w = boardW();
-      const totalGridW = COLS * (R * 2) + R;
-      const startX = Math.max(R + 4, (w - totalGridW) / 2 + R);
-      const offset = (r % 2 === 1) ? R : 0;
-      return {
-        x: startX + c * (R * 2) + offset,
-        y: 26 + r * 30
-      };
+      const startX = Math.max(R + 4, (w - (COLS * R * 2 + R)) / 2 + R);
+      return { x: startX + c * (R * 2) + ((r % 2 === 1) ? R : 0), y: 26 + r * 30 };
     }
 
     function playBeep(freq, dur) {
       if (!soundOn) return;
       try {
-        const ac = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = ac.createOscillator();
-        const gain = ac.createGain();
+        const AC = window.AudioContext || window.webkitAudioContext;
+        const ac = new AC(), osc = ac.createOscillator(), gain = ac.createGain();
         osc.frequency.value = freq;
         gain.gain.setValueAtTime(0.08, ac.currentTime);
         gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + dur);
@@ -239,64 +181,49 @@
       } catch (e) {}
     }
 
-    function activeColorsCount() {
-      return Math.min(2 + level, BUBBLE_COLORS.length);
-    }
+    function activeColorsCount() { return Math.min(2 + level, 5); }
 
     function pickAvailableColor() {
-      const present = new Set();
-      for (const row of grid) {
-        for (const cell of row) {
-          if (cell !== null && cell !== undefined) present.add(cell);
+      const present = [];
+      for (let r = 0; r < grid.length; r++) {
+        for (let c = 0; c < grid[r].length; c++) {
+          const v = grid[r][c];
+          if (v !== null && v !== undefined && present.indexOf(v) === -1) present.push(v);
         }
       }
-      const arr = Array.from(present);
-      if (arr.length > 0) return arr[Math.floor(Math.random() * arr.length)];
-      return Math.floor(Math.random() * activeColorsCount());
+      return present.length ? present[Math.floor(Math.random() * present.length)] : Math.floor(Math.random() * activeColorsCount());
     }
 
     function renderGrid() {
-      boardLayer.innerHTML = '';
+      let html = '';
       for (let r = 0; r < grid.length; r++) {
         for (let c = 0; c < grid[r].length; c++) {
           const val = grid[r][c];
           if (val === null || val === undefined) continue;
           const pos = cellCenter(r, c);
-          const el = document.createElement('div');
-          el.className = 'bubble';
-          el.style.left = pos.x + 'px';
-          el.style.top = pos.y + 'px';
-          el.style.backgroundColor = BUBBLE_COLORS[val];
-          boardLayer.appendChild(el);
+          html += '<div class="bubble c' + val + '" style="left:' + pos.x + 'px;top:' + pos.y + 'px;"></div>';
         }
       }
-      for (const fb of falling) {
-        boardLayer.appendChild(fb.el);
-      }
+      boardLayer.innerHTML = html;
+      for (let i = 0; i < falling.length; i++) boardLayer.appendChild(falling[i].el);
     }
 
     function updateShooterUI() {
       const deg = (aimAngle * 180 / Math.PI);
-      aimBarrel.style.transform = `rotate(${deg}deg)`;
-      aimLine.style.transform = `rotate(${deg}deg)`;
+      aimBarrel.style.transform = 'rotate(' + deg + 'deg)';
+      aimLine.style.transform = 'rotate(' + deg + 'deg)';
       aimLine.style.display = (isAiming && !shot) ? 'block' : 'none';
-
       currBallEl.style.display = shot ? 'none' : 'block';
-      currBallEl.className = isFireball ? 'bubble fire-ball' : 'bubble';
-      currBallEl.style.backgroundColor = BUBBLE_COLORS[currentColor];
-
-      nextBallEl.style.backgroundColor = BUBBLE_COLORS[nextColor];
-      ballsLbl.textContent = `Balls: ${ballsLeft}`;
+      currBallEl.className = isFireball ? 'bubble fire-ball' : ('bubble c' + currentColor);
+      nextBallEl.className = 'bubble c' + nextColor;
+      ballsLbl.textContent = 'Balls: ' + ballsLeft;
     }
 
     function initLevel() {
-      grid = [];
-      falling = [];
-      const rows = Math.min(3 + level, 7);
-      const colorLimit = activeColorsCount();
+      grid = []; falling = [];
+      const rows = Math.min(3 + level, 7), colorLimit = activeColorsCount();
       for (let r = 0; r < rows; r++) {
-        const rowArr = [];
-        const colsInRow = (r % 2 === 1) ? COLS - 1 : COLS;
+        const rowArr = [], colsInRow = (r % 2 === 1) ? COLS - 1 : COLS;
         let blockColor = Math.floor(Math.random() * colorLimit);
         for (let c = 0; c < colsInRow; c++) {
           if (c % 3 === 0) blockColor = Math.floor(Math.random() * colorLimit);
@@ -307,206 +234,133 @@
       ballsLeft = 30 + level * 3;
       currentColor = pickAvailableColor();
       nextColor = pickAvailableColor();
-      shot = null;
-      isFireball = false;
+      shot = null; isFireball = false;
       document.getElementById('lvlTxt').textContent = level;
       document.getElementById('winModal').style.display = 'none';
-      renderGrid();
-      updateShooterUI();
+      renderGrid(); updateShooterUI();
     }
 
     function updateAim(clientX, clientY) {
-      const rect = wrap.getBoundingClientRect();
-      const px = clientX - rect.left;
-      const py = clientY - rect.top;
-      const s = shooterPos();
-      let ang = Math.atan2(py - s.y, px - s.x);
-      const minAng = -Math.PI + 0.22;
-      const maxAng = -0.22;
-      if (ang > 0) ang = (px < s.x) ? minAng : maxAng;
-      aimAngle = Math.max(minAng, Math.min(maxAng, ang));
+      const rect = wrap.getBoundingClientRect(), s = shooterPos();
+      let ang = Math.atan2((clientY - rect.top) - s.y, (clientX - rect.left) - s.x);
+      if (ang > 0) ang = ((clientX - rect.left) < s.x) ? (-Math.PI + 0.22) : -0.22;
+      aimAngle = Math.max(-Math.PI + 0.22, Math.min(-0.22, ang));
       updateShooterUI();
     }
 
-    wrap.addEventListener('pointerdown', (e) => {
-      if (e.target.tagName === 'BUTTON' || shot) return;
-      isAiming = true;
-      updateAim(e.clientX, e.clientY);
-    });
-
-    wrap.addEventListener('pointermove', (e) => {
-      if (!isAiming || shot) return;
-      updateAim(e.clientX, e.clientY);
-    });
-
+    wrap.addEventListener('pointerdown', (e) => { if (e.target.tagName !== 'BUTTON' && !shot) { isAiming = true; updateAim(e.clientX, e.clientY); } });
+    wrap.addEventListener('pointermove', (e) => { if (isAiming && !shot) updateAim(e.clientX, e.clientY); });
     wrap.addEventListener('pointerup', () => {
       if (!isAiming || shot) return;
       isAiming = false;
       const s = shooterPos();
-      const speed = 15;
-      shot = {
-        x: s.x, y: s.y,
-        vx: Math.cos(aimAngle) * speed,
-        vy: Math.sin(aimAngle) * speed,
-        color: currentColor,
-        fire: isFireball
-      };
+      shot = { x: s.x, y: s.y, vx: Math.cos(aimAngle) * 15, vy: Math.sin(aimAngle) * 15, color: currentColor, fire: isFireball };
       isFireball = false;
       shotBallEl.style.display = 'block';
-      shotBallEl.className = shot.fire ? 'bubble fire-ball' : 'bubble';
-      shotBallEl.style.backgroundColor = BUBBLE_COLORS[shot.color];
-      updateShooterUI();
-      playBeep(420, 0.08);
+      shotBallEl.className = shot.fire ? 'bubble fire-ball' : ('bubble c' + shot.color);
+      updateShooterUI(); playBeep(420, 0.08);
     });
 
     function getNeighbors(r, c) {
-      const odd = r % 2 === 1;
-      const dirs = odd
-        ? [[-1, 0], [-1, 1], [0, -1], [0, 1], [1, 0], [1, 1]]
-        : [[-1, -1], [-1, 0], [0, -1], [0, 1], [1, -1], [1, 0]];
+      const dirs = (r % 2 === 1) ? [[-1,0],[-1,1],[0,-1],[0,1],[1,0],[1,1]] : [[-1,-1],[-1,0],[0,-1],[0,1],[1,-1],[1,0]];
       const res = [];
-      for (const [dr, dc] of dirs) {
-        const nr = r + dr, nc = c + dc;
+      for (let i = 0; i < dirs.length; i++) {
+        const nr = r + dirs[i][0], nc = c + dirs[i][1];
         if (grid[nr] && grid[nr][nc] !== undefined) res.push([nr, nc]);
       }
       return res;
     }
 
     function dropDisconnectedCeilingBubbles() {
-      const anchored = new Set();
-      const stack = [];
+      const anchored = {}, stack = [];
       if (grid[0]) {
         for (let c = 0; c < grid[0].length; c++) {
-          if (grid[0][c] !== null && grid[0][c] !== undefined) {
-            stack.push([0, c]);
-            anchored.add(`0,${c}`);
-          }
+          if (grid[0][c] !== null && grid[0][c] !== undefined) { stack.push([0, c]); anchored['0,' + c] = true; }
         }
       }
       while (stack.length) {
-        const [r, c] = stack.pop();
-        for (const [nr, nc] of getNeighbors(r, c)) {
-          const k = `${nr},${nc}`;
-          if (!anchored.has(k) && grid[nr][nc] !== null && grid[nr][nc] !== undefined) {
-            anchored.add(k);
-            stack.push([nr, nc]);
-          }
+        const item = stack.pop(), nbs = getNeighbors(item[0], item[1]);
+        for (let i = 0; i < nbs.length; i++) {
+          const nr = nbs[i][0], nc = nbs[i][1], k = nr + ',' + nc;
+          if (!anchored[k] && grid[nr][nc] !== null && grid[nr][nc] !== undefined) { anchored[k] = true; stack.push([nr, nc]); }
         }
       }
-
       let dropped = 0;
       for (let r = 0; r < grid.length; r++) {
         for (let c = 0; c < grid[r].length; c++) {
           const val = grid[r][c];
-          if (val !== null && val !== undefined && !anchored.has(`${r},${c}`)) {
-            const pos = cellCenter(r, c);
-            const el = document.createElement('div');
-            el.className = 'bubble';
-            el.style.backgroundColor = BUBBLE_COLORS[val];
+          if (val !== null && val !== undefined && !anchored[r + ',' + c]) {
+            const pos = cellCenter(r, c), el = document.createElement('div');
+            el.className = 'bubble c' + val;
             boardLayer.appendChild(el);
-            falling.push({ x: pos.x, y: pos.y, vx: (Math.random() - 0.5) * 3, vy: 4, el });
-            grid[r][c] = null;
-            dropped++;
+            falling.push({ x: pos.x, y: pos.y, vx: (Math.random() - 0.5) * 3, vy: 4, el: el });
+            grid[r][c] = null; dropped++;
           }
         }
       }
-      if (dropped > 0) {
-        score += dropped * 50;
-        document.getElementById('scoreTxt').textContent = score;
-        playBeep(880, 0.2);
-      }
+      if (dropped > 0) { score += dropped * 50; document.getElementById('scoreTxt').textContent = score; playBeep(880, 0.2); }
     }
 
     function checkEndState() {
       let remaining = 0;
-      for (const row of grid) for (const cell of row) if (cell !== null && cell !== undefined) remaining++;
+      for (let r = 0; r < grid.length; r++) for (let c = 0; c < grid[r].length; c++) if (grid[r][c] !== null && grid[r][c] !== undefined) remaining++;
       if (remaining === 0) {
-        coins += 50;
-        document.getElementById('coinTxt').textContent = coins;
-        document.getElementById('modalTitle').textContent = `LEVEL ${level} CLEAR! 🎉`;
-        document.getElementById('modalMsg').textContent = `Awesome! +50 Coins`;
-        document.getElementById('winModal').style.display = 'flex';
-        level++;
+        coins += 50; document.getElementById('coinTxt').textContent = coins;
+        document.getElementById('modalTitle').textContent = 'LEVEL ' + level + ' CLEAR! 🎉';
+        document.getElementById('modalMsg').textContent = 'Awesome! +50 Coins';
+        document.getElementById('winModal').style.display = 'flex'; level++;
       } else if (ballsLeft <= 0) {
-        document.getElementById('modalTitle').textContent = `OUT OF BALLS!`;
-        document.getElementById('modalMsg').textContent = `Try Level ${level} again!`;
+        document.getElementById('modalTitle').textContent = 'OUT OF BALLS!';
+        document.getElementById('modalMsg').textContent = 'Try Level ' + level + ' again!';
         document.getElementById('winModal').style.display = 'flex';
       }
     }
 
     function snapShot() {
       let bestR = 0, bestC = 0, bestDist = Infinity;
-      const maxRows = grid.length + 1;
-      for (let r = 0; r < maxRows; r++) {
+      for (let r = 0; r < grid.length + 1; r++) {
         const colsInRow = (r % 2 === 1) ? COLS - 1 : COLS;
         for (let c = 0; c < colsInRow; c++) {
           if (grid[r] && grid[r][c] !== null && grid[r][c] !== undefined) continue;
-          const pos = cellCenter(r, c);
-          const d = Math.hypot(shot.x - pos.x, shot.y - pos.y);
+          const pos = cellCenter(r, c), d = Math.hypot(shot.x - pos.x, shot.y - pos.y);
           if (d < bestDist) { bestDist = d; bestR = r; bestC = c; }
         }
       }
-      while (grid.length <= bestR) {
-        const len = (grid.length % 2 === 1) ? COLS - 1 : COLS;
-        grid.push(new Array(len).fill(null));
-      }
+      while (grid.length <= bestR) grid.push(new Array((grid.length % 2 === 1) ? COLS - 1 : COLS).fill(null));
       grid[bestR][bestC] = shot.color;
 
-      const visited = new Set();
-      const cluster = [];
-      const stack = [[bestR, bestC]];
+      const visited = {}, cluster = [], stack = [[bestR, bestC]];
       while (stack.length) {
-        const [cr, cc] = stack.pop();
-        const key = `${cr},${cc}`;
-        if (visited.has(key)) continue;
-        visited.add(key);
-        cluster.push([cr, cc]);
-        for (const [nr, nc] of getNeighbors(cr, cc)) {
-          if (grid[nr][nc] === shot.color && !visited.has(`${nr},${nc}`)) {
-            stack.push([nr, nc]);
-          }
+        const item = stack.pop(), cr = item[0], cc = item[1], key = cr + ',' + cc;
+        if (visited[key]) continue;
+        visited[key] = true; cluster.push([cr, cc]);
+        const nbs = getNeighbors(cr, cc);
+        for (let i = 0; i < nbs.length; i++) {
+          const nr = nbs[i][0], nc = nbs[i][1];
+          if (grid[nr][nc] === shot.color && !visited[nr + ',' + nc]) stack.push([nr, nc]);
         }
       }
-
       if (cluster.length >= 3) {
-        for (const [pr, pc] of cluster) {
-          grid[pr][pc] = null;
-        }
-        score += cluster.length * 25;
-        document.getElementById('scoreTxt').textContent = score;
-        playBeep(680, 0.14);
-        dropDisconnectedCeilingBubbles();
+        for (let i = 0; i < cluster.length; i++) grid[cluster[i][0]][cluster[i][1]] = null;
+        score += cluster.length * 25; document.getElementById('scoreTxt').textContent = score;
+        playBeep(680, 0.14); dropDisconnectedCeilingBubbles();
       }
-
-      ballsLeft--;
-      shot = null;
-      shotBallEl.style.display = 'none';
-      currentColor = nextColor;
-      nextColor = pickAvailableColor();
-      renderGrid();
-      updateShooterUI();
-      checkEndState();
+      ballsLeft--; shot = null; shotBallEl.style.display = 'none';
+      currentColor = nextColor; nextColor = pickAvailableColor();
+      renderGrid(); updateShooterUI(); checkEndState();
     }
 
     function loop() {
-      const w = boardW();
-      const h = boardH();
+      const w = boardW(), h = boardH();
       if (shot) {
-        shot.x += shot.vx;
-        shot.y += shot.vy;
+        shot.x += shot.vx; shot.y += shot.vy;
         if (shot.x <= R) { shot.x = R; shot.vx *= -1; playBeep(300, 0.04); }
         if (shot.x >= w - R) { shot.x = w - R; shot.vx *= -1; playBeep(300, 0.04); }
-
-        shotBallEl.style.left = shot.x + 'px';
-        shotBallEl.style.top = shot.y + 'px';
+        shotBallEl.style.left = shot.x + 'px'; shotBallEl.style.top = shot.y + 'px';
 
         if (shot.y <= 26) {
-          if (shot.fire) {
-            shot = null; shotBallEl.style.display = 'none';
-            ballsLeft--; dropDisconnectedCeilingBubbles(); renderGrid(); updateShooterUI(); checkEndState();
-          } else {
-            snapShot();
-          }
+          if (shot.fire) { shot = null; shotBallEl.style.display = 'none'; ballsLeft--; dropDisconnectedCeilingBubbles(); renderGrid(); updateShooterUI(); checkEndState(); }
+          else snapShot();
         } else {
           let hit = false;
           for (let r = 0; r < grid.length; r++) {
@@ -514,5 +368,20 @@
               if (grid[r][c] === null || grid[r][c] === undefined) continue;
               const pos = cellCenter(r, c);
               if (Math.hypot(shot.x - pos.x, shot.y - pos.y) < R * 1.8) {
-                if (shot.fire) {
-                  grid[r
+                if (shot.fire) { grid[r][c] = null; score += 30; document.getElementById('scoreTxt').textContent = score; dropDisconnectedCeilingBubbles(); renderGrid(); }
+                else { hit = true; break; }
+              }
+            }
+            if (hit) break;
+          }
+          if (hit) snapShot();
+        }
+      }
+      for (let i = falling.length - 1; i >= 0; i--) {
+        const fb = falling[i];
+        fb.x += fb.vx; fb.y += fb.vy; fb.vy += 0.6;
+        fb.el.style.left = fb.x + 'px'; fb.el.style.top = fb.y + 'px';
+        if (fb.y > h - 30) { fb.el.remove(); falling.splice(i, 1); }
+      }
+      requestAnimationFrame(loop);
+   
