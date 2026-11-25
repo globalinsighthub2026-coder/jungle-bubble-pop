@@ -7,7 +7,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
     html, body {
-      width: 100vw; height: 100vh; overflow: hidden;
+      width: 100%; height: 100%; overflow: hidden;
       background: #0d3b24; font-family: system-ui, -apple-system, sans-serif;
       display: flex; flex-direction: column;
       padding-top: 26px; padding-bottom: 56px;
@@ -33,7 +33,7 @@
     .icon-btn { width: 28px; height: 28px; border-radius: 8px; border: 1.5px solid #fde047; background: #9333ea; color: #fff; font-size: 13px; }
 
     .game-wrap {
-      flex: 1; position: relative; width: 100%; height: 480px; overflow: hidden;
+      flex: 1; position: relative; width: 100%; overflow: hidden;
       background: radial-gradient(circle at 50% 30%, #1b5e3a 0%, #0d3b24 100%);
       border-left: 2px solid #eab308; border-right: 2px solid #eab308;
       touch-action: none;
@@ -43,32 +43,39 @@
       background: linear-gradient(90deg, #eab308, #fef08a, #eab308);
     }
     .bubble {
-      position: absolute; border-radius: 50%;
-      box-shadow: inset -4px -4px 8px rgba(0,0,0,0.35), inset 4px 4px 8px rgba(255,255,255,0.55), 0 2px 4px rgba(0,0,0,0.4);
-      border: 1.5px solid rgba(255,255,255,0.45);
+      position: absolute; width: 34px; height: 34px; border-radius: 50%;
+      box-shadow: inset -4px -4px 8px rgba(0,0,0,0.35), inset 4px 4px 8px rgba(255,255,255,0.6), 0 2px 5px rgba(0,0,0,0.45);
+      border: 1.5px solid rgba(255,255,255,0.5);
       transform: translate(-50%, -50%);
       pointer-events: none;
     }
     .fire-ball {
       background: radial-gradient(circle at 35% 35%, #fef08a, #f97316, #dc2626) !important;
-      box-shadow: 0 0 16px #fde047 !important;
+      box-shadow: 0 0 18px #fde047 !important;
     }
     .shooter-ring {
-      position: absolute; transform: translate(-50%, -50%);
+      position: absolute; left: 50%; bottom: 12px;
+      width: 48px; height: 48px; transform: translateX(-50%);
       border-radius: 50%; background: #064e3b; border: 3px solid #facc15;
       pointer-events: none;
     }
     .aim-barrel {
-      position: absolute; height: 8px; background: #fde047; border-radius: 4px;
-      transform-origin: 0% 50%; pointer-events: none;
+      position: absolute; left: 50%; bottom: 32px;
+      width: 38px; height: 8px; background: #fde047; border-radius: 4px;
+      transform-origin: 0% 50%; transform: rotate(-90deg);
+      pointer-events: none;
     }
     .aim-line {
-      position: absolute; height: 3px;
-      border-top: 3px dashed rgba(255,255,255,0.7);
-      transform-origin: 0% 50%; pointer-events: none; display: none;
+      position: absolute; left: 50%; bottom: 35px;
+      width: 260px; height: 3px;
+      border-top: 3px dashed rgba(255,255,255,0.75);
+      transform-origin: 0% 50%; transform: rotate(-90deg);
+      pointer-events: none; display: none;
     }
+    #currBall { left: 50%; bottom: 19px; transform: translateX(-50%); }
+    #nextBall { left: calc(50% - 46px); bottom: 16px; width: 24px; height: 24px; transform: translateX(-50%); }
     .balls-label {
-      position: absolute; transform: translate(0, -50%);
+      position: absolute; left: calc(50% + 34px); bottom: 26px;
       color: #fff; font-weight: 900; font-size: 13px;
       text-shadow: 0 1px 3px #000; pointer-events: none;
     }
@@ -87,7 +94,7 @@
     .badge { position: absolute; top: -6px; right: -4px; background: #fef08a; color: #000; width: 18px; height: 18px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #000; }
 
     .modal {
-      position: absolute; inset: 0; background: rgba(0,0,0,0.8);
+      position: absolute; inset: 0; background: rgba(0,0,0,0.82);
       display: none; align-items: center; justify-content: center; z-index: 20;
     }
     .modal-card {
@@ -126,7 +133,7 @@
     <div id="boardLayer"></div>
     <div class="aim-line" id="aimLine"></div>
     <div class="aim-barrel" id="aimBarrel"></div>
-    <div class="shooter-ring" id="shooterRing"></div>
+    <div class="shooter-ring"></div>
     <div class="bubble" id="currBall"></div>
     <div class="bubble" id="nextBall"></div>
     <div class="bubble" id="shotBall" style="display:none;"></div>
@@ -194,13 +201,12 @@
     const currBallEl = document.getElementById('currBall');
     const nextBallEl = document.getElementById('nextBall');
     const shotBallEl = document.getElementById('shotBall');
-    const shooterRing = document.getElementById('shooterRing');
     const aimBarrel = document.getElementById('aimBarrel');
     const aimLine = document.getElementById('aimLine');
     const ballsLbl = document.getElementById('ballsLbl');
 
     const COLS = 9;
-    let W = 360, H = 480, R = 18;
+    const R = 17;
     let grid = [];
     let level = 1, score = 0, coins = 300, fireballs = 3, ballsLeft = 30;
     let currentColor = 0, nextColor = 1, isFireball = false;
@@ -208,6 +214,21 @@
     let aimAngle = -Math.PI / 2;
     let isAiming = false, soundOn = true;
     let falling = [];
+
+    function boardW() { return wrap.offsetWidth || window.innerWidth || 360; }
+    function boardH() { return wrap.offsetHeight || (window.innerHeight - 175) || 460; }
+    function shooterPos() { return { x: boardW() / 2, y: boardH() - 36 }; }
+
+    function cellCenter(r, c) {
+      const w = boardW();
+      const totalGridW = COLS * (R * 2) + R;
+      const startX = Math.max(R + 4, (w - totalGridW) / 2 + R);
+      const offset = (r % 2 === 1) ? R : 0;
+      return {
+        x: startX + c * (R * 2) + offset,
+        y: 26 + r * 30
+      };
+    }
 
     function playBeep(freq, dur) {
       if (!soundOn) return;
@@ -221,22 +242,6 @@
         osc.connect(gain); gain.connect(ac.destination);
         osc.start(); osc.stop(ac.currentTime + dur);
       } catch (e) {}
-    }
-
-    function measure() {
-      const rect = wrap.getBoundingClientRect();
-      W = rect.width > 100 ? Math.floor(rect.width) : (window.innerWidth > 100 ? window.innerWidth : 360);
-      H = rect.height > 150 ? Math.floor(rect.height) : Math.max(420, (window.innerHeight || 720) - 210);
-      R = Math.max(15, Math.floor(W / (COLS * 2 + 1)));
-    }
-
-    function shooterPos() { return { x: W / 2, y: H - R * 2.2 }; }
-
-    function cellCenter(r, c) {
-      const offset = (r % 2 === 1) ? R : 0;
-      const x = R + c * (R * 2) + offset + (W - (COLS * R * 2 + R)) / 2;
-      const y = R * 1.4 + r * (R * 1.75);
-      return { x, y };
     }
 
     function activeColorsCount() {
@@ -257,7 +262,6 @@
 
     function renderGrid() {
       boardLayer.innerHTML = '';
-      const d = R * 2 - 1;
       for (let r = 0; r < grid.length; r++) {
         for (let c = 0; c < grid[r].length; c++) {
           const val = grid[r][c];
@@ -265,8 +269,6 @@
           const pos = cellCenter(r, c);
           const el = document.createElement('div');
           el.className = 'bubble';
-          el.style.width = d + 'px';
-          el.style.height = d + 'px';
           el.style.left = pos.x + 'px';
           el.style.top = pos.y + 'px';
           el.style.background = GRADIENTS[val];
@@ -279,48 +281,20 @@
     }
 
     function updateShooterUI() {
-      const s = shooterPos();
-      const d = R * 2 - 1;
       const deg = (aimAngle * 180 / Math.PI);
-
-      shooterRing.style.width = (d + 14) + 'px';
-      shooterRing.style.height = (d + 14) + 'px';
-      shooterRing.style.left = s.x + 'px';
-      shooterRing.style.top = s.y + 'px';
-
-      aimBarrel.style.width = (R * 2.1) + 'px';
-      aimBarrel.style.left = s.x + 'px';
-      aimBarrel.style.top = (s.y - 4) + 'px';
       aimBarrel.style.transform = `rotate(${deg}deg)`;
-
-      aimLine.style.width = '280px';
-      aimLine.style.left = s.x + 'px';
-      aimLine.style.top = s.y + 'px';
       aimLine.style.transform = `rotate(${deg}deg)`;
       aimLine.style.display = (isAiming && !shot) ? 'block' : 'none';
 
       currBallEl.style.display = shot ? 'none' : 'block';
-      currBallEl.style.width = d + 'px';
-      currBallEl.style.height = d + 'px';
-      currBallEl.style.left = s.x + 'px';
-      currBallEl.style.top = s.y + 'px';
       currBallEl.className = isFireball ? 'bubble fire-ball' : 'bubble';
       currBallEl.style.background = GRADIENTS[currentColor];
 
-      const nd = Math.floor(d * 0.72);
-      nextBallEl.style.width = nd + 'px';
-      nextBallEl.style.height = nd + 'px';
-      nextBallEl.style.left = (s.x - R * 2.5) + 'px';
-      nextBallEl.style.top = (s.y + 4) + 'px';
       nextBallEl.style.background = GRADIENTS[nextColor];
-
-      ballsLbl.style.left = (s.x + R * 1.8) + 'px';
-      ballsLbl.style.top = (s.y + 4) + 'px';
       ballsLbl.textContent = `Balls: ${ballsLeft}`;
     }
 
     function initLevel() {
-      measure();
       grid = [];
       falling = [];
       const rows = Math.min(3 + level, 7);
@@ -374,7 +348,7 @@
       if (!isAiming || shot) return;
       isAiming = false;
       const s = shooterPos();
-      const speed = Math.max(14, R * 0.85);
+      const speed = 15;
       shot = {
         x: s.x, y: s.y,
         vx: Math.cos(aimAngle) * speed,
@@ -383,10 +357,7 @@
         fire: isFireball
       };
       isFireball = false;
-      const d = R * 2 - 1;
       shotBallEl.style.display = 'block';
-      shotBallEl.style.width = d + 'px';
-      shotBallEl.style.height = d + 'px';
       shotBallEl.className = shot.fire ? 'bubble fire-ball' : 'bubble';
       shotBallEl.style.background = GRADIENTS[shot.color];
       updateShooterUI();
@@ -406,6 +377,7 @@
       return res;
     }
 
+    // Drop ALL bubbles disconnected from the ceiling (Row 0)!
     function dropDisconnectedCeilingBubbles() {
       const anchored = new Set();
       const stack = [];
@@ -429,7 +401,6 @@
       }
 
       let dropped = 0;
-      const d = R * 2 - 1;
       for (let r = 0; r < grid.length; r++) {
         for (let c = 0; c < grid[r].length; c++) {
           const val = grid[r][c];
@@ -437,8 +408,6 @@
             const pos = cellCenter(r, c);
             const el = document.createElement('div');
             el.className = 'bubble';
-            el.style.width = d + 'px';
-            el.style.height = d + 'px';
             el.style.background = GRADIENTS[val];
             boardLayer.appendChild(el);
             falling.push({ x: pos.x, y: pos.y, vx: (Math.random() - 0.5) * 3, vy: 4, el });
@@ -500,4 +469,43 @@
         cluster.push([cr, cc]);
         for (const [nr, nc] of getNeighbors(cr, cc)) {
           if (grid[nr][nc] === shot.color && !visited.has(`${nr},${nc}`)) {
-            stack.push([nr, nc])
+            stack.push([nr, nc]);
+          }
+        }
+      }
+
+      if (cluster.length >= 3) {
+        for (const [pr, pc] of cluster) {
+          grid[pr][pc] = null;
+        }
+        score += cluster.length * 25;
+        document.getElementById('scoreTxt').textContent = score;
+        playBeep(680, 0.14);
+        dropDisconnectedCeilingBubbles();
+      }
+
+      ballsLeft--;
+      shot = null;
+      shotBallEl.style.display = 'none';
+      currentColor = nextColor;
+      nextColor = pickAvailableColor();
+      renderGrid();
+      updateShooterUI();
+      checkEndState();
+    }
+
+    function loop() {
+      const w = boardW();
+      const h = boardH();
+      if (shot) {
+        shot.x += shot.vx;
+        shot.y += shot.vy;
+        if (shot.x <= R) { shot.x = R; shot.vx *= -1; playBeep(300, 0.04); }
+        if (shot.x >= w - R) { shot.x = w - R; shot.vx *= -1; playBeep(300, 0.04); }
+
+        shotBallEl.style.left = shot.x + 'px';
+        shotBallEl.style.top = shot.y + 'px';
+
+        if (shot.y <= 26) {
+          if (shot.fire) {
+            shot = null; shotBal
