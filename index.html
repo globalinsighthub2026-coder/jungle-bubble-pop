@@ -7,7 +7,7 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-user-select: none; }
     html, body {
-      width: 100%; height: 100%; overflow: hidden;
+      width: 100vw; height: 100vh; overflow: hidden;
       background: #0d3b24; font-family: system-ui, -apple-system, sans-serif;
       display: flex; flex-direction: column;
       padding-top: 26px; padding-bottom: 56px;
@@ -33,7 +33,7 @@
     .icon-btn { width: 28px; height: 28px; border-radius: 8px; border: 1.5px solid #fde047; background: #9333ea; color: #fff; font-size: 13px; }
 
     .game-wrap {
-      flex: 1; position: relative; width: 100%; overflow: hidden;
+      flex: 1; position: relative; width: 100%; height: 480px; overflow: hidden;
       background: radial-gradient(circle at 50% 30%, #1b5e3a 0%, #0d3b24 100%);
       border-left: 2px solid #eab308; border-right: 2px solid #eab308;
       touch-action: none;
@@ -182,11 +182,11 @@
     }
 
     const GRADIENTS = [
-      'radial-gradient(circle at 32% 32%, #fca5a5, #ef4444, #991b1b)', // Red
-      'radial-gradient(circle at 32% 32%, #93c5fd, #3b82f6, #1e40af)', // Blue
-      'radial-gradient(circle at 32% 32%, #fef08a, #eab308, #854d0e)', // Yellow
-      'radial-gradient(circle at 32% 32%, #86efac, #22c55e, #166534)', // Green
-      'radial-gradient(circle at 32% 32%, #d8b4fe, #a855f7, #581c87)'  // Purple
+      'radial-gradient(circle at 32% 32%, #fca5a5, #ef4444, #991b1b)',
+      'radial-gradient(circle at 32% 32%, #93c5fd, #3b82f6, #1e40af)',
+      'radial-gradient(circle at 32% 32%, #fef08a, #eab308, #854d0e)',
+      'radial-gradient(circle at 32% 32%, #86efac, #22c55e, #166534)',
+      'radial-gradient(circle at 32% 32%, #d8b4fe, #a855f7, #581c87)'
     ];
 
     const wrap = document.getElementById('gameWrap');
@@ -200,7 +200,7 @@
     const ballsLbl = document.getElementById('ballsLbl');
 
     const COLS = 9;
-    let W = 360, H = 500, R = 18;
+    let W = 360, H = 480, R = 18;
     let grid = [];
     let level = 1, score = 0, coins = 300, fireballs = 3, ballsLeft = 30;
     let currentColor = 0, nextColor = 1, isFireball = false;
@@ -224,12 +224,13 @@
     }
 
     function measure() {
-      W = wrap.clientWidth || window.innerWidth || 360;
-      H = wrap.clientHeight || (window.innerHeight - 180) || 480;
-      R = Math.floor(W / (COLS * 2 + 1));
+      const rect = wrap.getBoundingClientRect();
+      W = rect.width > 100 ? Math.floor(rect.width) : (window.innerWidth > 100 ? window.innerWidth : 360);
+      H = rect.height > 150 ? Math.floor(rect.height) : Math.max(420, (window.innerHeight || 720) - 210);
+      R = Math.max(15, Math.floor(W / (COLS * 2 + 1)));
     }
 
-    function shooterPos() { return { x: W / 2, y: H - R * 2.1 }; }
+    function shooterPos() { return { x: W / 2, y: H - R * 2.2 }; }
 
     function cellCenter(r, c) {
       const offset = (r % 2 === 1) ? R : 0;
@@ -405,7 +406,6 @@
       return res;
     }
 
-    // Drop ALL bubbles disconnected from the ceiling (Row 0)!
     function dropDisconnectedCeilingBubbles() {
       const anchored = new Set();
       const stack = [];
@@ -500,9 +500,4 @@
         cluster.push([cr, cc]);
         for (const [nr, nc] of getNeighbors(cr, cc)) {
           if (grid[nr][nc] === shot.color && !visited.has(`${nr},${nc}`)) {
-            stack.push([nr, nc]);
-          }
-        }
-      }
-
-      if (cluster.length >= 3)
+            stack.push([nr, nc])
