@@ -34,6 +34,7 @@ jobs:
 
       - name: Generate Custom Jungle Bubble App Icon
         run: |
+          pip install pillow
           python3 -c '
           from PIL import Image, ImageDraw
           import os
