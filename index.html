@@ -10,26 +10,27 @@
       width: 100%; height: 100%; overflow: hidden;
       background: #0d3b24; font-family: system-ui, -apple-system, sans-serif;
       display: flex; flex-direction: column;
+      padding-bottom: 56px;
     }
     .top-bar {
       background: linear-gradient(180deg, #132a1c, #0c1f14);
       border-bottom: 2px solid #eab308;
-      padding: 8px 10px; color: #fff; flex-shrink: 0;
+      padding: 6px 10px; color: #fff; flex-shrink: 0;
     }
-    .row1 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .profile { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); padding: 4px 10px; border-radius: 20px; border: 1px solid #eab308; }
-    .avatar { width: 28px; height: 28px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .zone-pill { background: #14532d; border: 1px solid #4ade80; padding: 4px 12px; border-radius: 16px; font-size: 12px; font-weight: 700; color: #bbf7d0; }
-    .sound-btn { width: 34px; height: 34px; border-radius: 10px; background: #0d9488; border: 1.5px solid #5eead4; color: #fff; font-size: 16px; }
+    .row1 { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .profile { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.08); padding: 3px 10px; border-radius: 20px; border: 1px solid #eab308; }
+    .avatar { width: 24px; height: 24px; border-radius: 50%; background: #f59e0b; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .zone-pill { background: #14532d; border: 1px solid #4ade80; padding: 3px 10px; border-radius: 16px; font-size: 11px; font-weight: 700; color: #bbf7d0; }
+    .sound-btn { width: 30px; height: 30px; border-radius: 8px; background: #0d9488; border: 1.5px solid #5eead4; color: #fff; font-size: 14px; }
     .row2 { display: flex; align-items: center; gap: 6px; }
-    .lvl-badge { background: linear-gradient(135deg, #ffaa00, #d96b00); border: 1.5px solid #ffe484; border-radius: 10px; padding: 3px 8px; text-align: center; }
+    .lvl-badge { background: linear-gradient(135deg, #ffaa00, #d96b00); border: 1.5px solid #ffe484; border-radius: 8px; padding: 2px 8px; text-align: center; }
     .lvl-badge span { display: block; font-size: 8px; font-weight: 800; }
-    .lvl-badge strong { font-size: 14px; font-weight: 900; }
+    .lvl-badge strong { font-size: 13px; font-weight: 900; }
     .score-box { flex: 1; padding-left: 4px; }
     .score-box .lbl { font-size: 9px; color: #a7f3d0; font-weight: 700; }
-    .score-box .val { font-size: 16px; font-weight: 900; }
-    .pill { display: flex; align-items: center; gap: 4px; background: #1f1608; border: 1.5px solid #fbbf24; border-radius: 14px; padding: 4px 8px; font-size: 12px; font-weight: 800; }
-    .icon-btn { width: 32px; height: 32px; border-radius: 10px; border: 1.5px solid #fde047; background: #9333ea; color: #fff; font-size: 14px; }
+    .score-box .val { font-size: 15px; font-weight: 900; }
+    .pill { display: flex; align-items: center; gap: 4px; background: #1f1608; border: 1.5px solid #fbbf24; border-radius: 12px; padding: 3px 7px; font-size: 11px; font-weight: 800; }
+    .icon-btn { width: 28px; height: 28px; border-radius: 8px; border: 1.5px solid #fde047; background: #9333ea; color: #fff; font-size: 13px; }
 
     .game-wrap {
       flex: 1; position: relative; width: 100%; overflow: hidden;
@@ -40,34 +41,30 @@
 
     .bottom-bar {
       background: #0c1f14; border-top: 2px solid #eab308;
-      padding: 8px 10px 58px 10px; flex-shrink: 0;
+      padding: 6px 10px; flex-shrink: 0;
     }
     .power-row { display: flex; gap: 8px; }
     .p-btn {
-      flex: 1; padding: 8px 10px; border-radius: 12px; border: 2px solid #fde047;
-      color: #fff; font-weight: 800; font-size: 13px; text-align: center; position: relative;
+      flex: 1; padding: 8px 8px; border-radius: 10px; border: 2px solid #fde047;
+      color: #fff; font-weight: 800; font-size: 12px; text-align: center; position: relative;
     }
     .fire-btn { background: linear-gradient(180deg, #f97316, #c2410c); }
     .plus-btn { background: linear-gradient(180deg, #2563eb, #1d4ed8); border-color: #93c5fd; }
-    .badge { position: absolute; top: -6px; right: -4px; background: #fef08a; color: #000; width: 20px; height: 20px; border-radius: 50%; font-size: 11px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #000; }
-    .ad-status {
-      position: fixed; bottom: 0; left: 0; right: 0; height: 50px;
-      background: #09150e; color: #86efac; font-size: 11px;
-      display: flex; align-items: center; justify-content: center; z-index: 1;
-    }
+    .badge { position: absolute; top: -6px; right: -4px; background: #fef08a; color: #000; width: 18px; height: 18px; border-radius: 50%; font-size: 10px; display: flex; align-items: center; justify-content: center; border: 1.5px solid #000; }
+
     .modal {
       position: absolute; inset: 0; background: rgba(0,0,0,0.78);
       display: none; align-items: center; justify-content: center; z-index: 20;
     }
     .modal-card {
       background: linear-gradient(180deg, #14532d, #052e16); border: 2px solid #facc15;
-      border-radius: 18px; padding: 22px; text-align: center; color: #fff; width: 80%; max-width: 300px;
+      border-radius: 18px; padding: 20px; text-align: center; color: #fff; width: 82%; max-width: 300px;
     }
-    .modal-card h2 { color: #fde047; margin-bottom: 8px; font-size: 22px; }
-    .modal-card p { margin-bottom: 16px; font-size: 14px; color: #dcfce7; }
+    .modal-card h2 { color: #fde047; margin-bottom: 8px; font-size: 20px; }
+    .modal-card p { margin-bottom: 14px; font-size: 13px; color: #dcfce7; }
     .next-btn {
       background: linear-gradient(180deg, #22c55e, #15803d); border: 2px solid #bbf7d0;
-      color: #fff; font-weight: 900; font-size: 16px; padding: 10px 24px; border-radius: 12px; width: 100%;
+      color: #fff; font-weight: 900; font-size: 15px; padding: 10px 20px; border-radius: 12px; width: 100%;
     }
   </style>
 </head>
@@ -76,7 +73,7 @@
     <div class="row1">
       <div class="profile">
         <div class="avatar">🦁</div>
-        <div><div style="font-size:12px;font-weight:800;">Jungle Hero</div><div style="font-size:10px;color:#86efac;">Beginner 🌱</div></div>
+        <div><div style="font-size:11px;font-weight:800;">Jungle Hero</div><div style="font-size:9px;color:#86efac;">Beginner 🌱</div></div>
       </div>
       <div class="zone-pill">🌴 Emerald Jungle</div>
       <button class="sound-btn" id="soundBtn">🔊</button>
@@ -103,25 +100,19 @@
 
   <div class="bottom-bar">
     <div class="power-row">
-      <button class="p-btn fire-btn" id="fireBtn">🔥 FIREBALL <span class="badge" id="fireCount">2</span></button>
+      <button class="p-btn fire-btn" id="fireBtn">🔥 FIREBALL <span class="badge" id="fireCount">3</span></button>
       <button class="p-btn plus-btn" id="plusBtn">🎬 +5 BALLS (Ad)</button>
     </div>
   </div>
-  <div class="ad-status" id="adStatus">Loading Google AdMob Banner...</div>
 
   <script>
-    // Official Google AdMob Test Unit IDs (Replace with real IDs when publishing to Play Store)
     const BANNER_AD_ID = 'ca-app-pub-3940256099942544/6300978111';
     const REWARD_AD_ID = 'ca-app-pub-3940256099942544/5224354917';
 
     async function initAdMob() {
-      const statusEl = document.getElementById('adStatus');
       try {
         const AdMob = window.Capacitor?.Plugins?.AdMob;
-        if (!AdMob) {
-          statusEl.textContent = 'AdMob Ready (Install APK to view live Test Ad)';
-          return;
-        }
+        if (!AdMob) return;
         await AdMob.initialize({ initializeForTesting: true });
         await AdMob.showBanner({
           adId: BANNER_AD_ID,
@@ -130,19 +121,13 @@
           margin: 0,
           isTesting: true
         });
-        statusEl.textContent = '';
-      } catch (err) {
-        statusEl.textContent = 'AdMob: ' + (err.message || 'Check Internet');
-      }
+      } catch (err) {}
     }
 
     async function showRewardedAd() {
       try {
         const AdMob = window.Capacitor?.Plugins?.AdMob;
-        if (!AdMob) {
-          ballsLeft += 5;
-          return;
-        }
+        if (!AdMob) { ballsLeft += 5; return; }
         await AdMob.prepareRewardVideoAd({ adId: REWARD_AD_ID, isTesting: true });
         await AdMob.showRewardVideoAd();
         ballsLeft += 5;
@@ -163,10 +148,10 @@
       { fill: '#a855f7', hi: '#d8b4fe' }
     ];
 
-    let W = 360, H = 500, R = 18;
+    let W = 360, H = 480, R = 18;
     const COLS = 9;
     let grid = [];
-    let level = 1, score = 0, coins = 300, fireballs = 2, ballsLeft = 25;
+    let level = 1, score = 0, coins = 300, fireballs = 3, ballsLeft = 30;
     let currentColor = 0, nextColor = 1, isFireball = false;
     let shot = null;
     let targetAngle = -Math.PI / 2, smoothAngle = -Math.PI / 2;
@@ -190,7 +175,7 @@
     function resizeCanvas() {
       const rect = wrap.getBoundingClientRect();
       W = rect.width > 50 ? rect.width : window.innerWidth;
-      H = rect.height > 50 ? rect.height : (window.innerHeight - 230);
+      H = rect.height > 50 ? rect.height : (window.innerHeight - 190);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = W * dpr;
       canvas.height = H * dpr;
@@ -198,30 +183,52 @@
       R = Math.floor(W / (COLS * 2 + 1));
     }
 
-    function shooterPos() { return { x: W / 2, y: H - R * 2.4 }; }
+    function shooterPos() { return { x: W / 2, y: H - R * 2.2 }; }
 
     function cellCenter(r, c) {
       const offset = (r % 2 === 1) ? R : 0;
       const x = R + c * (R * 2) + offset + (W - (COLS * R * 2 + R)) / 2;
-      const y = R * 1.4 + r * (R * 1.75);
+      const y = R * 1.3 + r * (R * 1.75);
       return { x, y };
+    }
+
+    function activeColorsCount() {
+      return Math.min(2 + level, COLORS.length); // Level 1 = 3 colors, Level 2 = 4 colors, Level 3+ = 5 colors
+    }
+
+    function pickAvailableColor() {
+      const present = new Set();
+      for (const row of grid) {
+        for (const cell of row) {
+          if (cell !== null && cell !== undefined) present.add(cell);
+        }
+      }
+      const arr = Array.from(present);
+      if (arr.length > 0) return arr[Math.floor(Math.random() * arr.length)];
+      return Math.floor(Math.random() * activeColorsCount());
     }
 
     function initLevel() {
       resizeCanvas();
       grid = [];
-      const rows = Math.min(5 + Math.floor(level / 2), 8);
+      const rows = Math.min(2 + level, 7); // Level 1 starts with just 3 easy rows!
+      const colorLimit = activeColorsCount();
       for (let r = 0; r < rows; r++) {
         const rowArr = [];
         const colsInRow = (r % 2 === 1) ? COLS - 1 : COLS;
         for (let c = 0; c < colsInRow; c++) {
-          rowArr.push(Math.floor(Math.random() * COLORS.length));
+          // Group same colors together in pairs so clearing is fun & easy
+          if (c > 0 && Math.random() < 0.45) {
+            rowArr.push(rowArr[c - 1]);
+          } else {
+            rowArr.push(Math.floor(Math.random() * colorLimit));
+          }
         }
         grid.push(rowArr);
       }
-      ballsLeft = 25 + level * 2;
-      currentColor = Math.floor(Math.random() * COLORS.length);
-      nextColor = Math.floor(Math.random() * COLORS.length);
+      ballsLeft = 30 + level * 3;
+      currentColor = pickAvailableColor();
+      nextColor = pickAvailableColor();
       shot = null;
       isFireball = false;
       document.getElementById('lvlTxt').textContent = level;
@@ -278,11 +285,11 @@
       updateAim(e.clientX, e.clientY);
     }, { passive: false });
 
-    canvas.addEventListener('pointerup', (e) => {
+    canvas.addEventListener('pointerup', () => {
       if (!isAiming || shot) return;
       isAiming = false;
       const s = shooterPos();
-      const speed = Math.max(12, R * 0.85);
+      const speed = Math.max(13, R * 0.9);
       shot = {
         x: s.x, y: s.y,
         vx: Math.cos(smoothAngle) * speed,
@@ -305,6 +312,70 @@
         if (grid[nr] && grid[nr][nc] !== undefined) res.push([nr, nc]);
       }
       return res;
+    }
+
+    // Drop any floating bubbles not connected to top row!
+    function dropFloatingBubbles() {
+      const anchored = new Set();
+      const stack = [];
+      if (grid[0]) {
+        for (let c = 0; c < grid[0].length; c++) {
+          if (grid[0][c] !== null && grid[0][c] !== undefined) {
+            stack.push([0, c]);
+            anchored.add(`0,${c}`);
+          }
+        }
+      }
+      while (stack.length) {
+        const [r, c] = stack.pop();
+        for (const [nr, nc] of getNeighbors(r, c)) {
+          const k = `${nr},${nc}`;
+          if (!anchored.has(k) && grid[nr][nc] !== null && grid[nr][nc] !== undefined) {
+            anchored.add(k);
+            stack.push([nr, nc]);
+          }
+        }
+      }
+      let dropped = 0;
+      for (let r = 0; r < grid.length; r++) {
+        for (let c = 0; c < grid[r].length; c++) {
+          if (grid[r][c] !== null && grid[r][c] !== undefined && !anchored.has(`${r},${c}`)) {
+            const p = cellCenter(r, c);
+            for (let i = 0; i < 6; i++) {
+              particles.push({
+                x: p.x, y: p.y,
+                vx: (Math.random() - 0.5) * 6,
+                vy: Math.random() * 6 + 2,
+                life: 26,
+                color: COLORS[grid[r][c]].fill
+              });
+            }
+            grid[r][c] = null;
+            dropped++;
+          }
+        }
+      }
+      if (dropped > 0) {
+        score += dropped * 40;
+        document.getElementById('scoreTxt').textContent = score;
+      }
+    }
+
+    function checkEndState() {
+      let remaining = 0;
+      for (const row of grid) for (const cell of row) if (cell !== null && cell !== undefined) remaining++;
+      if (remaining === 0) {
+        coins += 50;
+        document.getElementById('coinTxt').textContent = coins;
+        document.getElementById('modalTitle').textContent = `LEVEL ${level} CLEAR! 🎉`;
+        document.getElementById('modalMsg').textContent = `Awesome! +50 Coins`;
+        document.getElementById('winModal').style.display = 'flex';
+        level++;
+      } else if (ballsLeft <= 0) {
+        document.getElementById('modalTitle').textContent = `OUT OF BALLS!`;
+        document.getElementById('modalMsg').textContent = `Try Level ${level} again!`;
+        document.getElementById('winModal').style.display = 'flex';
+      }
     }
 
     function snapShot() {
@@ -358,27 +429,14 @@
         score += cluster.length * 25;
         document.getElementById('scoreTxt').textContent = score;
         playBeep(680, 0.14);
+        dropFloatingBubbles();
       }
 
       ballsLeft--;
-      currentColor = nextColor;
-      nextColor = Math.floor(Math.random() * COLORS.length);
       shot = null;
-
-      let remaining = 0;
-      for (const row of grid) for (const cell of row) if (cell !== null && cell !== undefined) remaining++;
-      if (remaining === 0) {
-        coins += 50;
-        document.getElementById('coinTxt').textContent = coins;
-        document.getElementById('modalTitle').textContent = `LEVEL ${level} CLEAR! 🎉`;
-        document.getElementById('modalMsg').textContent = `Awesome! +50 Coins`;
-        document.getElementById('winModal').style.display = 'flex';
-        level++;
-      } else if (ballsLeft <= 0) {
-        document.getElementById('modalTitle').textContent = `OUT OF BALLS!`;
-        document.getElementById('modalMsg').textContent = `Try Level ${level} again!`;
-        document.getElementById('winModal').style.display = 'flex';
-      }
+      currentColor = nextColor;
+      nextColor = pickAvailableColor();
+      checkEndState();
     }
 
     function update() {
@@ -389,8 +447,8 @@
         if (shot.x <= R) { shot.x = R; shot.vx *= -1; playBeep(300, 0.04); }
         if (shot.x >= W - R) { shot.x = W - R; shot.vx *= -1; playBeep(300, 0.04); }
 
-        if (shot.y <= R * 1.4) {
-          if (shot.fire) { shot = null; ballsLeft--; }
+        if (shot.y <= R * 1.3) {
+          if (shot.fire) { shot = null; ballsLeft--; dropFloatingBubbles(); checkEndState(); }
           else snapShot();
         } else {
           let hit = false;
@@ -483,23 +541,4 @@
     }
 
     document.getElementById('fireBtn').onclick = () => {
-      if (fireballs > 0 && !isFireball) {
-        fireballs--;
-        isFireball = true;
-        document.getElementById('fireCount').textContent = fireballs;
-      }
-    };
-    document.getElementById('plusBtn').onclick = showRewardedAd;
-    document.getElementById('chestBtn').onclick = () => { coins += 25; document.getElementById('coinTxt').textContent = coins; };
-    document.getElementById('soundBtn').onclick = (e) => { soundOn = !soundOn; e.target.textContent = soundOn ? '🔊' : '🔇'; };
-    document.getElementById('nextBtn').onclick = initLevel;
-
-    window.addEventListener('resize', resizeCanvas);
-    window.addEventListener('load', () => {
-      initLevel();
-      setTimeout(() => { resizeCanvas(); initAdMob(); }, 300);
-      loop();
-    });
-  </script>
-</body>
-</html>
+      if (fireballs > 0 && !isFire
